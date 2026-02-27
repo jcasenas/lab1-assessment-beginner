@@ -1,5 +1,12 @@
 <?php
-// index.php
+session_start();
+
+// If not logged in, redirect to login
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
 require_once __DIR__ . "/db.php";
 
 // --- Clients ---
@@ -52,7 +59,8 @@ $revenue = $r ? (float)mysqli_fetch_assoc($r)['s'] : 0;
   ?>
 
   <div class="container py-5">
-    <h2 class="mb-4 fw-light text-center">Dashboard Overview</h2>
+    <h2 class="mb-1 fw-light text-center">Dashboard Overview</h2>
+    <p class="text-center text-muted mb-4">Welcome, <strong><?php echo $_SESSION['username']; ?></strong>!</p>
 
     <div class="row g-4">
       <div class="col-md-6 col-lg-3">
